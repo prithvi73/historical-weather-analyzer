@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 # Getting weather data
@@ -23,4 +24,18 @@ df = pd.DataFrame({
 })
 
 # calculating average
-df["avg_temp"] = df["max_temp"] - df["min_temp"]
+df["avg_temp"] = (df["max_temp"] + df["min_temp"]) / 2
+
+# creating visualization
+plt.figure(figsize=(10, 6))
+plt.plot(df["date"], df["max_temp"], "r-o", label="Max")
+plt.plot(df["date"], df["min_temp"], "b-o", label="Min")
+plt.plot(df["date"], df["avg_temp"], "g--", label="Average")
+
+plt.xlabel("Date")
+plt.ylabel("Temperature (°C)")
+plt.title("Weather")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.xticks()
+plt.tight_layout()
